@@ -1,15 +1,63 @@
-const desc = 'I just learned how to create a REACT Node, and place it into the DOM'
-const myTitleID = 'main title';
-const name = 'Cory';
+const players = [
+    {name:"Cory",
+     score:"50"
+    },
 
-const header = (
-    <header>
-        <h1 id ={myTitleID}>{ name}'s First REACT Element</h1>
-        <p>{ desc }</p>
-    </header>
-);
+    {name:"Lauren",
+     score:"90"
+    },
+
+    {name:"Arianna",
+     score:"85"
+    },
+
+    {name:"Teddy",
+     score:"80"
+    },
+
+    {name:"Tinny",
+     score:"50"
+    },
+];
+
+const Header = (props) => 
+        <header>
+            <h1>{ props.title }</h1>
+            <span className="stats">{ props.totalPlayers }</span>
+        </header>;
+ // component built in Arrow function syntax. No curly braces //
+
+const Player = (props) => 
+
+<div className="player">
+    <span className="player-name">
+        { props.name }
+    </span>
+    <Counter score={ props.score }/>
+</div>
+
+const Counter = (props) =>
+<div className="counter">
+    <button className="counter-action decrement"> - </button>
+    <span className="counter-score">{props.score}</span>
+    <button className="counter-action increment"> + </button>
+</div>
+
+// JSX Comment  = {/* Comment Title */} //
+const App = () =>
+    <div className="scoreboard">
+        <Header title="Scoreboard" totalPlayers={1}/>
+
+        {/* Players List */} 
+        <Player name="Cory" score={50}/>
+        <Player name="Lauren" score={90}/>
+        <Player name="Arianna" score={50}/>
+        <Player name="Teddy" score={85}/>
+        <Player name="Tinny" score={80}/>
+    </div>
 
 ReactDOM.render(
-    header,
+    <App initialPlayers={players}/>,
     document.getElementById('root')
+    
 );
