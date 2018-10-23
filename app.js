@@ -44,11 +44,17 @@ const Counter = (props) =>
 </div>
 
 // JSX Comment  = {/* Comment Title */} //
-const App = () =>
+const App = (props) =>
     <div className="scoreboard">
-        <Header title="Scoreboard" totalPlayers={1}/>
+        <Header 
+        title="Scoreboard" 
+        totalPlayers={1}
+        />
 
         {/* Players List */} 
+        {props.initialPlayers.map(
+            
+        )}
         <Player name="Cory" score={50}/>
         <Player name="Lauren" score={90}/>
         <Player name="Arianna" score={50}/>
