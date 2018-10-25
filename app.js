@@ -1,50 +1,23 @@
-const players = [
-    {
-    name:"Cory",
-    score:"50",
-    id: 1
-    },
-
-    {
-    name:"Lauren",
-    score:"90",
-    id: 2
-    },
-
-    {
-    name:"Arianna",
-    score:"85",
-    id: 3
-    },
-
-    {
-    name:"Teddy",
-    score:"80",
-    id: 4
-    },
-
-    {
-    name:"Tinny",
-    score:"50",
-    id: 5
-    },
-];
-
-const Header = (props) => 
+const Header = (props) => {
+    return (
         <header>
             <h1>{ props.title }</h1>
-            <span className="stats">{ props.totalPlayers }</span>
-        </header>;
- // component built in Arrow function syntax. No curly braces //
+            <span className="stats">Players: { props.totalPlayers }</span>
+        </header>
+ );
+}
 
-const Player = (props) => 
-
-<div className="player">
-    <span className="player-name">
-        { props.name }
-    </span>
-    <Counter />
-</div>
+const Player = (props) => {
+console.log(props.removePlayer)
+return (
+    <div className="player">
+        <span className="player-name">
+            { props.name }
+        </span>
+        <Counter />
+    </div>
+    );
+}
 
 class Counter extends React.Component {
 
@@ -76,24 +49,69 @@ class Counter extends React.Component {
 }
 
 // JSX Comment  = {/* Comment Title */} //
-const App = (props) =>
-    <div className="scoreboard">
-        <Header 
-        title="Scoreboard" 
-        totalPlayers={props.initialPlayers.length}
-        />
+class App extends React.Component {
 
-        {/* Players List */} 
-        {props.initialPlayers.map( player =>
-        <Player 
-            name={player.name} 
-            key={player.id.toString()}
-        />
-        )}
-    </div>
+    state = {
+        players: [
+            {
+                name:"Cory",
+                id: 1
+                },
+            
+                {
+                name:"Lauren",
+                id: 2
+                },
+            
+                {
+                name:"Arianna",
+                id: 3
+                },
+            
+                {
+                name:"Teddy",
+                id: 4
+                },
+            
+                {
+                name:"Tinny",
+                id: 5
+                }
+            ]
+    };
+
+    handleRemovePlayer = (id) => {
+        this.setState( prevState =>  {
+            return {
+                players: prevState.players.filter( p => p.id !== id )
+            };
+        });
+    }
+
+    render() {
+        return(
+            <div className="scoreboard">
+                <Header 
+                title="Scoreboard" 
+                totalPlayers={ this.state.players.length }
+                />
+        
+                {/* Players List */} 
+                { this.state.players.map( player =>
+                <Player 
+                    name={player.name} 
+                    id={player.id}
+                    key={player.id.toString()}
+                    removePlayer={this.handleRemovePlayer}
+                />
+                )}
+            </div>
+        );
+    } 
+}
 
 ReactDOM.render(
-    <App initialPlayers={players}/>,
+    <App />,
     document.getElementById('root')
     
-);
+); 
